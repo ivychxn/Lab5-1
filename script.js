@@ -7,20 +7,20 @@ const canvas = document.getElementById('user-image');
 // get context
 const ctx = canvas.getContext('2d');
 // get img input
-const img_input = document.querySelector('image-input');
+const img_input = document.getElementById('image-input');
 // get form
 const form = document.getElementById('generate-meme');
 // generate button
 const genB = form.querySelectorAll('button')[0];
 // clear button
-const clearB = document.querySelectorAll('button-group')[0];
+const clearB = document.getElementById('button-group').querySelectorAll('button')[0];
 // read text button
-const readB = document.querySelectorAll('button-group')[1];
+const readB = document.getElementById('button-group').querySelectorAll('button')[1];
 // voice choice thing
 const voiceSelect = document.getElementById('voice-selection');
 // for populating voices
 var voices = [];
-var synth = window.speechSynthesis;
+const synth = window.speechSynthesis;
 // volume stuff
 const volumeGroup = document.getElementById('volume-group');
 const volumeSlide = volumeGroup.querySelectorAll('input')[0];
@@ -32,9 +32,9 @@ img.addEventListener('load', () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // toggle the relevant buttons by disabling or enabling them as needed
-  genB.disabled = true;
-  clearB.disabled = false;
-  readB.disabled = false;
+  //genB.disabled = false;
+  //clearB.disabled = true;
+  //readB.disabled = true;
 
   // Some helpful tips:
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
@@ -75,19 +75,21 @@ form.addEventListener('submit', (e) => {
   ctx.font = '48px serif';
   ctx.textAlign = 'center';
   ctx.fillStyle = 'white';
-  ctx.fillText(textTop, canvas.width/2, 25);
-  ctx.fillText(textBottom, canvas.width/2, canvas.height - 25);
+  ctx.fillText(textTop, canvas.width/2, 40);
+  ctx.fillText(textBottom, canvas.width/2, canvas.height - 20);
+  
   genB.disabled = true;
   clearB.disabled = false;
   readB.disabled = false;
-  voiceSelection.disabled = false;
+  
+  voiceSelect.disabled = false;
   populateVoiceList();
 });
 
 // button: clear on click
 clearB.addEventListener('click', () => {
   // clear the image and/or text present
-  context.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   form.reset();
 
   // toggle relevant buttons
